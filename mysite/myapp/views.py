@@ -5,7 +5,10 @@ from .models import Book
 
 def index(request):
     book_list = Book.objects.all()
-    return HttpResponse(book_list)
+    context = {
+        'book_list':book_list
+    }
+    return render(request, 'myapp/index.html',context)
 
 
 def products(request):
