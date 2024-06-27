@@ -6,7 +6,7 @@
 
     <body>
         {% for book in book_list %}
-            {{book.name}} -------> {{book.description}} -------> {{book.price}} 
+            <a href="/book/{{book.id}}"> {{book.name}}  R${{book.price}}.00</a> <br>      
         {% endfor %}
 
     </body>

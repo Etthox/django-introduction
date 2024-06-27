@@ -10,6 +10,9 @@ def index(request):
     }
     return render(request, 'myapp/index.html',context)
 
+def details(request,book_id):
+    book = Book.objects.get(id=book_id)
+    return render(request, "myapp/detail.html",{'book': book})
 
 def products(request):
     return HttpResponse('There are some Products:')
