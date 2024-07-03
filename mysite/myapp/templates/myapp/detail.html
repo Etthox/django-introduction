@@ -9,5 +9,6 @@
 <br>
 <h6>{{book.price}}</h6>
 <br>
-                 
+<a href="{% url 'myapp:delete' book.id %}" type="button" class="btn btn-danger">Delete</a>   
+<a href="{% url 'myapp:update' book.id %}" type="button" class="btn btn-warning">Edit</a>         
 {% endblock %}

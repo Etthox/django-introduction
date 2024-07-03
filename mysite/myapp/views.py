@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Book
+from .forms import BookForm
 
 
 def index(request):
@@ -10,8 +11,8 @@ def index(request):
     }
     return render(request, 'myapp/index.html',context)
 
-def details(request,book_id):
-    book = Book.objects.get(id=book_id)
+def details(request,id):
+    book = Book.objects.get(id=id)
     return render(request, "myapp/detail.html",{'book': book})
 
 def products(request):
@@ -35,3 +36,18 @@ def add_book(request):
         return HttpResponseRedirect('/')  
 
     return render(request, 'myapp/add_book.html')
+
+def update_book(request,id):
+    book = Book.objects.get(id=id)
+    form = BookForm(request.POST or None, request.FILES, instance=book)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    return render(request,'myapp/edit_book.html',{'form':form,'book':book})
+
+def delete_book(request,id):
+    book = Book.objects.get(id=id)
+    if request.method == "POST":
+        book.delete()
+        return HttpResponseRedirect('/')  
+    return render(request, 'myapp/delete.html')
